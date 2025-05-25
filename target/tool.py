@@ -186,8 +186,8 @@ class RizinTarget(base.MesonTarget):
 
     def prepare_source(self, state: BuildState):
         state.download_source(
-            'https://github.com/rizinorg/rizin/releases/download/v0.7.4/rizin-src-v0.7.4.tar.xz',
-            'f7118910e5dc843c38baa3e00b30ec019a1cdd5c132ba2bc16cf0c7497631201')
+            'https://github.com/rizinorg/rizin/releases/download/v0.8.1/rizin-src-v0.8.1.tar.xz',
+            'ef2b1e6525d7dc36ac43525b956749c1cca07bf17c1fed8b66402d82010a4ec2')
 
     def detect(self, state: BuildState) -> bool:
         return state.has_source_file('binrz/man/rizin.1')
