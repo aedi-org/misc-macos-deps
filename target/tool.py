@@ -223,7 +223,7 @@ class SevenZipTarget(base.MakeTarget):
         opts = state.options
         opts['-f'] = None
         opts[f'../../cmpl_mac_{mak_suffix}.mak'] = None
-        opts['CFLAGS_BASE_LIST'] = environment['CFLAGS'] + ' -c'
+        opts['CFLAGS_BASE_LIST'] = environment['CFLAGS'] + ' -Wno-switch-default -c'
         opts['LDFLAGS_STATIC_2'] = environment['LDFLAGS']
 
         super().build(state)
