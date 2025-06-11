@@ -40,6 +40,7 @@ def targets():
         # Tools
         AutoconfTarget(),
         AutomakeTarget(),
+        BisonTarget(),
         Bzip3Target(),
         FFmpegTarget(),
         LuaTarget(),
