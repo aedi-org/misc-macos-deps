@@ -48,6 +48,23 @@ class AutomakeTarget(base.ConfigureMakeDependencyTarget):
             'f01d58cd6d9d77fbdca9eb4bbd5ead1988228fdb73d6f7a201f5f8d6b118b469')
 
 
+class BisonTarget(base.ConfigureMakeStaticDependencyTarget):
+    def __init__(self, name='bison'):
+        super().__init__(name)
+
+    def prepare_source(self, state: BuildState):
+        state.download_source(
+            'https://ftp.gnu.org/gnu/bison/bison-3.8.2.tar.xz',
+            '9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2')
+
+    def detect(self, state: BuildState) -> bool:
+        return state.has_source_file('doc/bison.1')
+
+    def configure(self, state: BuildState):
+        state.options['--enable-relocatable'] = None
+        super().configure(state)
+
+
 class Bzip3Target(base.CMakeStaticDependencyTarget):
     def __init__(self, name='bzip3'):
         super().__init__(name)
@@ -81,6 +98,23 @@ class FFmpegTarget(base.ConfigureMakeDependencyTarget):
 
     def configure(self, state: BuildState):
         state.options['--arch'] = state.architecture()
+        super().configure(state)
+
+
+class GraphvizTarget(base.CMakeStaticDependencyTarget):
+    def __init__(self, name='graphviz'):
+        super().__init__(name)
+
+    def prepare_source(self, state: BuildState):
+        state.download_source(
+            'https://gitlab.com/graphviz/graphviz/-/archive/8.1.0/graphviz-8.1.0.tar.bz2',
+            'ce8911695752aa2c3929147e3dee016e58aa624d81d7c18dd16f895ae79460de')
+
+    def configure(self, state: BuildState):
+        opts = state.options
+        opts['enable_ltdl'] = 'NO'
+        opts['with_gvedit'] = 'NO'
+
         super().configure(state)
 
 
@@ -236,6 +270,23 @@ class SevenZipTarget(base.MakeTarget):
     def _arch_suffix(state: BuildState):
         arch = state.architecture()
         return 'x64' if arch == 'x86_64' else arch
+
+
+class TimemoryTarget(base.CMakeStaticDependencyTarget):
+    def __init__(self, name='timemory'):
+        super().__init__(name)
+
+    def prepare_source(self, state: BuildState):
+        state.download_source(
+            'https://github.com/NERSC/timemory/archive/refs/tags/v3.2.3.tar.gz',
+            'f85f17df6d60ff12745f742b34e7de15a6247123306d29809ba45e9c6fc5b67f')
+
+    def configure(self, state: BuildState):
+        opts = state.options
+        opts['BUILD_STATIC_LIBS'] = 'ON'
+        opts['TIMEMORY_BUILD_FORTRAN'] = 'OFF'
+
+        super().configure(state)
 
 
 class UnrarTarget(base.MakeTarget):

@@ -52,6 +52,39 @@ class BrotliTarget(base.CMakeStaticDependencyTarget):
         return line.replace('-R${libdir} ', '') if line.startswith('Libs:') else line
 
 
+class Bzip2Target(base.CMakeStaticDependencyTarget):
+    def __init__(self, name='bzip2'):
+        super().__init__(name)
+
+    def prepare_source(self, state: BuildState):
+        state.download_source(
+            'https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz',
+            'ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269',
+            patches='bzip2-add-cmake')
+
+    def detect(self, state: BuildState) -> bool:
+        return state.has_source_file('bzlib.h')
+
+    def configure(self, state: BuildState):
+        opts = state.options
+        opts['ENABLE_APP'] = 'NO'
+        opts['ENABLE_SHARED_LIB'] = 'NO'
+        opts['ENABLE_STATIC_LIB'] = 'YES'
+        opts['ENABLE_TESTS'] = 'NO'
+
+        super().configure(state)
+
+    def post_build(self, state: BuildState):
+        super().post_build(state)
+
+        lib_path = state.install_path / 'lib'
+        os.rename(lib_path / 'libbz2_static.a', lib_path / 'libbz2.a')
+
+    @staticmethod
+    def _process_pkg_config(pcfile: Path, line: str) -> str:
+        return '' if line.startswith('bindir=') else line
+
+
 class ExpatTarget(base.CMakeStaticDependencyTarget):
     def __init__(self, name='expat'):
         super().__init__(name)
@@ -223,6 +256,41 @@ class JpegTurboTarget(base.CMakeStaticDependencyTarget):
     def configure(self, state: BuildState):
         state.options['ENABLE_SHARED'] = 'NO'
         super().configure(state)
+
+
+class OpusFileTarget(base.CMakeStaticDependencyTarget):
+    def __init__(self, name='opusfile'):
+        super().__init__(name)
+
+    def prepare_source(self, state: BuildState):
+        state.download_source(
+            'https://ftp.osuosl.org/pub/xiph/releases/opus/opusfile-0.12.tar.gz',
+            '118d8601c12dd6a44f52423e68ca9083cc9f2bfe72da7a8c1acb22a80ae3550b',
+            patches='opusfile-add-cmake')
+
+    def configure(self, state: BuildState):
+        # TODO: figure out why it looks for headers in prefix root instead of opus subdirectory
+        headers = ('opus.h', 'opus_defines.h', 'opus_multistream.h', 'opus_projection.h', 'opus_types.h')
+
+        for header in headers:
+            dest_path = state.include_path / header
+
+            if not dest_path.exists():
+                os.link(state.include_path / 'opus' / header, dest_path)
+
+        opts = state.options
+        opts['OP_DISABLE_DOCS'] = 'YES'
+        opts['OP_DISABLE_EXAMPLES'] = 'YES'
+        opts['OP_DISABLE_HTTP'] = 'YES'
+
+        super().configure(state)
+
+    def post_build(self, state: BuildState):
+        super().post_build(state)
+
+        self.write_pc_file(
+            state, description='High-level Opus decoding library', version='0.12',
+            requires_private='ogg >= 1.3 opus >= 1.0.1', cflags='-I${includedir}/opus')
 
 
 class TiffTarget(base.CMakeStaticDependencyTarget):

@@ -24,6 +24,7 @@ def targets():
     return (
         # Libraries
         BrotliTarget(),
+        Bzip2Target(),
         ExpatTarget(),
         FfiTarget(),
         FreeImageTarget(),
@@ -32,14 +33,17 @@ def targets():
         IconvTarget(),
         IntlTarget(),
         JpegTurboTarget(),
+        OpusFileTarget(),
         TiffTarget(),
         WxWidgetsTarget(),
 
         # Tools
         AutoconfTarget(),
         AutomakeTarget(),
+        BisonTarget(),
         Bzip3Target(),
         FFmpegTarget(),
+        GraphvizTarget(),
         LuaTarget(),
         M4Target(),
         P7ZipTarget(),
@@ -47,6 +51,7 @@ def targets():
         Radare2Target(),
         RizinTarget(),
         SevenZipTarget(),
+        TimemoryTarget(),
         UnrarTarget(),
         XdeltaTarget(),
         XzTarget(),
