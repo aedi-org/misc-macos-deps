@@ -258,6 +258,41 @@ class JpegTurboTarget(base.CMakeStaticDependencyTarget):
         super().configure(state)
 
 
+class OpusFileTarget(base.CMakeStaticDependencyTarget):
+    def __init__(self, name='opusfile'):
+        super().__init__(name)
+
+    def prepare_source(self, state: BuildState):
+        state.download_source(
+            'https://ftp.osuosl.org/pub/xiph/releases/opus/opusfile-0.12.tar.gz',
+            '118d8601c12dd6a44f52423e68ca9083cc9f2bfe72da7a8c1acb22a80ae3550b',
+            patches='opusfile-add-cmake')
+
+    def configure(self, state: BuildState):
+        # TODO: figure out why it looks for headers in prefix root instead of opus subdirectory
+        headers = ('opus.h', 'opus_defines.h', 'opus_multistream.h', 'opus_projection.h', 'opus_types.h')
+
+        for header in headers:
+            dest_path = state.include_path / header
+
+            if not dest_path.exists():
+                os.link(state.include_path / 'opus' / header, dest_path)
+
+        opts = state.options
+        opts['OP_DISABLE_DOCS'] = 'YES'
+        opts['OP_DISABLE_EXAMPLES'] = 'YES'
+        opts['OP_DISABLE_HTTP'] = 'YES'
+
+        super().configure(state)
+
+    def post_build(self, state: BuildState):
+        super().post_build(state)
+
+        self.write_pc_file(
+            state, description='High-level Opus decoding library', version='0.12',
+            requires_private='ogg >= 1.3 opus >= 1.0.1', cflags='-I${includedir}/opus')
+
+
 class TiffTarget(base.CMakeStaticDependencyTarget):
     def __init__(self, name='tiff'):
         super().__init__(name)

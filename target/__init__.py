@@ -33,6 +33,7 @@ def targets():
         IconvTarget(),
         IntlTarget(),
         JpegTurboTarget(),
+        OpusFileTarget(),
         TiffTarget(),
         WxWidgetsTarget(),
 
