@@ -24,6 +24,7 @@ def targets():
     return (
         # Libraries
         BrotliTarget(),
+        Bzip2Target(),
         ExpatTarget(),
         FfiTarget(),
         FreeImageTarget(),
