@@ -347,11 +347,7 @@ class XzTarget(base.CMakeStaticDependencyTarget):
             'db0590629b6f0fa36e74aea5f9731dc6f8df068ce7b7bafa45301832a5eebc3a')
 
     def configure(self, state: BuildState):
-        options = state.options
-        options['BUILD_TESTING'] += 'NO'
-        # Dependencies of libintl are not pulled automatically
-        options['CMAKE_EXE_LINKER_FLAGS'] += '-framework CoreFoundation -liconv'
-
+        state.options['BUILD_TESTING'] = 'NO'
         super().configure(state)
 
 
