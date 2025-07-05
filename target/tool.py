@@ -343,8 +343,8 @@ class XzTarget(base.CMakeStaticDependencyTarget):
 
     def prepare_source(self, state: BuildState):
         state.download_source(
-            'https://github.com/tukaani-project/xz/releases/download/v5.6.3/xz-5.6.3.tar.xz',
-            'db0590629b6f0fa36e74aea5f9731dc6f8df068ce7b7bafa45301832a5eebc3a')
+            'https://github.com/tukaani-project/xz/releases/download/v5.8.1/xz-5.8.1.tar.gz',
+            '507825b599356c10dca1cd720c9d0d0c9d5400b9de300af00e4d1ea150795543')
 
     def configure(self, state: BuildState):
         state.options['BUILD_TESTING'] = 'NO'
