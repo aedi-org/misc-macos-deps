@@ -21,8 +21,8 @@ import os
 import shutil
 from pathlib import Path
 
-import aedi.target.base as base
 from aedi.state import BuildState
+from aedi.target import base
 
 
 class BrotliTarget(base.CMakeStaticDependencyTarget):
