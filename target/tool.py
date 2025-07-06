@@ -25,8 +25,8 @@ from aedi.target import base
 
 class AutoconfTarget(base.ConfigureMakeDependencyTarget):
     # TODO: fix absolute paths in bin/* and share/autoconf/autom4te.cfg
-    def __init__(self, name='autoconf'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('autoconf')
         self.multi_platform = False
 
     def prepare_source(self, state: BuildState):
@@ -37,8 +37,8 @@ class AutoconfTarget(base.ConfigureMakeDependencyTarget):
 
 class AutomakeTarget(base.ConfigureMakeDependencyTarget):
     # TODO: fix absolute paths in bin/* and share/automake-1.16/Automake/Config.pm
-    def __init__(self, name='automake'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('automake')
         self.multi_platform = False
 
     def prepare_source(self, state: BuildState):
@@ -48,8 +48,8 @@ class AutomakeTarget(base.ConfigureMakeDependencyTarget):
 
 
 class BisonTarget(base.ConfigureMakeStaticDependencyTarget):
-    def __init__(self, name='bison'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('bison')
 
     def prepare_source(self, state: BuildState):
         state.download_source(
@@ -65,8 +65,8 @@ class BisonTarget(base.ConfigureMakeStaticDependencyTarget):
 
 
 class Bzip3Target(base.CMakeStaticDependencyTarget):
-    def __init__(self, name='bzip3'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('bzip3')
 
     def prepare_source(self, state: BuildState):
         state.download_source(
@@ -84,8 +84,8 @@ class Bzip3Target(base.CMakeStaticDependencyTarget):
 
 class FFmpegTarget(base.ConfigureMakeDependencyTarget):
     # TODO: fix absolute paths in bin/* and lib/*
-    def __init__(self, name='ffmpeg'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('ffmpeg')
 
     def prepare_source(self, state: BuildState):
         state.download_source(
@@ -101,8 +101,8 @@ class FFmpegTarget(base.ConfigureMakeDependencyTarget):
 
 
 class GraphvizTarget(base.CMakeStaticDependencyTarget):
-    def __init__(self, name='graphviz'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('graphviz')
 
     def prepare_source(self, state: BuildState):
         state.download_source(
@@ -118,8 +118,8 @@ class GraphvizTarget(base.CMakeStaticDependencyTarget):
 
 
 class LuaTarget(base.MakeTarget):
-    def __init__(self, name='lua'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('lua')
 
     def prepare_source(self, state: BuildState):
         state.download_source(
@@ -138,8 +138,8 @@ class LuaTarget(base.MakeTarget):
 
 
 class M4Target(base.ConfigureMakeDependencyTarget):
-    def __init__(self, name='m4'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('m4')
 
     def prepare_source(self, state: BuildState):
         state.download_source(
@@ -148,8 +148,8 @@ class M4Target(base.ConfigureMakeDependencyTarget):
 
 
 class P7ZipTarget(base.CMakeTarget):
-    def __init__(self, name='p7zip'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('p7zip')
         self.src_root = 'CPP/7zip/CMAKE/7za'
 
     def prepare_source(self, state: BuildState):
@@ -166,8 +166,8 @@ class P7ZipTarget(base.CMakeTarget):
 
 
 class PbzxTarget(base.SingleExeCTarget):
-    def __init__(self, name='pbzx'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('pbzx')
         self.options = ('pbzx.c', '-lxar', '-llzma')
 
     def prepare_source(self, state: BuildState):
@@ -181,8 +181,8 @@ class PbzxTarget(base.SingleExeCTarget):
 
 
 class Radare2Target(base.MesonTarget):
-    def __init__(self, name='radare2'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('radare2')
         self.configure_prefix = False
 
     def prepare_source(self, state: BuildState):
@@ -214,8 +214,8 @@ class Radare2Target(base.MesonTarget):
 
 
 class RizinTarget(base.MesonTarget):
-    def __init__(self, name='rizin'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('rizin')
 
     def prepare_source(self, state: BuildState):
         state.download_source(
@@ -237,8 +237,8 @@ class RizinTarget(base.MesonTarget):
 
 
 class SevenZipTarget(base.MakeTarget):
-    def __init__(self, name='7zip'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('7zip')
         self.src_root = 'CPP/7zip/Bundles/Alone2'
 
     def prepare_source(self, state: BuildState):
@@ -272,8 +272,8 @@ class SevenZipTarget(base.MakeTarget):
 
 
 class TimemoryTarget(base.CMakeStaticDependencyTarget):
-    def __init__(self, name='timemory'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('timemory')
 
     def prepare_source(self, state: BuildState):
         state.download_source(
@@ -289,8 +289,8 @@ class TimemoryTarget(base.CMakeStaticDependencyTarget):
 
 
 class UnrarTarget(base.MakeTarget):
-    def __init__(self, name='unrar'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('unrar')
 
     def prepare_source(self, state: BuildState):
         state.download_source(
@@ -312,8 +312,8 @@ class UnrarTarget(base.MakeTarget):
 
 class XdeltaTarget(base.ConfigureMakeDependencyTarget):
     # Depends on autoconf, automake, and (optionally) xz
-    def __init__(self, name='xdelta'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('xdelta')
         self.src_root = 'xdelta3'
 
     def prepare_source(self, state: BuildState):
@@ -337,8 +337,8 @@ class XdeltaTarget(base.ConfigureMakeDependencyTarget):
 
 
 class XzTarget(base.CMakeStaticDependencyTarget):
-    def __init__(self, name='xz'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('xz')
 
     def prepare_source(self, state: BuildState):
         state.download_source(
@@ -351,8 +351,8 @@ class XzTarget(base.CMakeStaticDependencyTarget):
 
 
 class ZipTarget(base.SingleExeCTarget):
-    def __init__(self, name='zip'):
-        super().__init__(name)
+    def __init__(self):
+        super().__init__('zip')
         self.options = (
             '-I.', '-DUNIX', '-DBZIP2_SUPPORT', '-DLARGE_FILE_SUPPORT', '-DUNICODE_SUPPORT',
             '-DHAVE_DIRENT_H', '-DHAVE_TERMIOS_H', '-lbz2',
