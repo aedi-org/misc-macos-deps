@@ -318,9 +318,9 @@ class TiffTarget(base.CMakeStaticDependencyTarget):
 
         if line.startswith(version):
             return version + ' 4.3.0\n'
-        elif line.startswith(cflags):
+        if line.startswith(cflags):
             return cflags + ' -I${includedir}\nRequires.private: libjpeg liblzma libwebp libzstd zlib\n'
-        elif line.startswith(libs):
+        if line.startswith(libs):
             return libs + ' -L${libdir} -ltiff\n'
 
         return line
@@ -370,17 +370,17 @@ class WxWidgetsTarget(base.CMakeStaticDependencyTarget):
 
             if line.startswith(prefix):
                 return prefix + '$(cd "${0%/*}/.."; pwd)}}\n'
-            elif line.startswith(is_cross_func):
+            if line.startswith(is_cross_func):
                 return is_cross_func + '{ false; }\n'
-            elif line.startswith(is_cross_test):
+            if line.startswith(is_cross_test):
                 return is_cross_test + '""\n'
-            elif line.startswith(output_option_cc):
+            if line.startswith(output_option_cc):
                 return output_option_cc + '] || echo "gcc"\n'
-            elif line.startswith(output_option_cxx):
+            if line.startswith(output_option_cxx):
                 return output_option_cxx + '] || echo "g++"\n'
-            elif line.startswith(output_option_ld):
+            if line.startswith(output_option_ld):
                 return output_option_ld + '] || echo "g++ -o"\n'
-            elif line.startswith(ldlibs_gl):
+            if line.startswith(ldlibs_gl):
                 return ldlibs_gl + '"-lwx_baseu-3.1 -lwx_osx_cocoau_core-3.1 -framework OpenGL"\n'
 
             return line
