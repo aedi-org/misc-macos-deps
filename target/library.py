@@ -19,7 +19,6 @@
 import glob
 import os
 import shutil
-from pathlib import Path
 
 from aedi.state import BuildState
 from aedi.target import base
@@ -48,7 +47,7 @@ class BrotliTarget(base.CMakeStaticDependencyTarget):
             os.rename(archive, no_suffix_name)
 
     @staticmethod
-    def _process_pkg_config(pcfile: Path, line: str) -> str:
+    def _process_pkg_config(_, line: str) -> str:
         return line.replace('-R${libdir} ', '') if line.startswith('Libs:') else line
 
 
@@ -81,7 +80,7 @@ class Bzip2Target(base.CMakeStaticDependencyTarget):
         os.rename(lib_path / 'libbz2_static.a', lib_path / 'libbz2.a')
 
     @staticmethod
-    def _process_pkg_config(pcfile: Path, line: str) -> str:
+    def _process_pkg_config(_, line: str) -> str:
         return '' if line.startswith('bindir=') else line
 
 
@@ -311,7 +310,7 @@ class TiffTarget(base.CMakeStaticDependencyTarget):
         super().configure(state)
 
     @staticmethod
-    def _process_pkg_config(pcfile: Path, line: str) -> str:
+    def _process_pkg_config(_, line: str) -> str:
         version = 'Version:'
         cflags = 'Cflags:'
         libs = 'Libs:'

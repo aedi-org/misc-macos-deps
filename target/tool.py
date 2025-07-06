@@ -18,7 +18,6 @@
 
 import os
 import subprocess
-from pathlib import Path
 
 from aedi.state import BuildState
 from aedi.target import base
@@ -79,7 +78,7 @@ class Bzip3Target(base.CMakeStaticDependencyTarget):
         super().configure(state)
 
     @staticmethod
-    def _process_pkg_config(pcfile: Path, line: str) -> str:
+    def _process_pkg_config(_, line: str) -> str:
         return '' if line.startswith('bindir=') else line
 
 
