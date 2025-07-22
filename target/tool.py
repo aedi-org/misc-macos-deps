@@ -294,17 +294,11 @@ class UnrarTarget(base.MakeTarget):
 
     def prepare_source(self, state: BuildState):
         state.download_source(
-            'https://www.rarlab.com/rar/unrarsrc-6.2.12.tar.gz',
-            'a008b5f949bca9bb4ffa1bebbfc8b3c14b89df10a10354809b845232d5f582e5')
+            'https://www.rarlab.com/rar/unrarsrc-7.1.8.tar.gz',
+            '9ec7765a948140758af12ed29e3e47db425df79a9c5cbb71b28769b256a7a014')
 
     def detect(self, state: BuildState) -> bool:
         return state.has_source_file('rar.hpp')
-
-    def configure(self, state: BuildState):
-        # Value of CXXFLAGS variable from makefile with '-std=c++11' command line argument added
-        state.options['CXXFLAGS'] = '-std=c++11 -O2 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else'
-
-        super().configure(state)
 
     def post_build(self, state: BuildState):
         self.copy_to_bin(state)
