@@ -297,6 +297,9 @@ class UnrarTarget(base.MakeTarget):
             'https://www.rarlab.com/rar/unrarsrc-6.2.12.tar.gz',
             'a008b5f949bca9bb4ffa1bebbfc8b3c14b89df10a10354809b845232d5f582e5')
 
+    def detect(self, state: BuildState) -> bool:
+        return state.has_source_file('rar.hpp')
+
     def configure(self, state: BuildState):
         # Value of CXXFLAGS variable from makefile with '-std=c++11' command line argument added
         state.options['CXXFLAGS'] = '-std=c++11 -O2 -Wno-logical-op-parentheses -Wno-switch -Wno-dangling-else'
@@ -305,9 +308,6 @@ class UnrarTarget(base.MakeTarget):
 
     def post_build(self, state: BuildState):
         self.copy_to_bin(state)
-
-    def detect(self, state: BuildState) -> bool:
-        return state.has_source_file('rar.hpp')
 
 
 class XdeltaTarget(base.ConfigureMakeDependencyTarget):
