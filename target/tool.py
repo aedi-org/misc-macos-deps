@@ -180,10 +180,9 @@ class PbzxTarget(base.SingleExeCTarget):
         return state.has_source_file('pbzx.c')
 
 
-class Radare2Target(base.MesonTarget):
+class Radare2Target(base.MesonStaticTarget):
     def __init__(self):
         super().__init__('radare2')
-        self.configure_prefix = False
 
     def prepare_source(self, state: BuildState):
         state.download_source(
