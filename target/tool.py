@@ -214,7 +214,7 @@ class Radare2Target(base.MesonStaticTarget):
         os.rename(bin_path / 'r2blob', bin_path / 'radare2')
 
 
-class RizinTarget(base.MesonTarget):
+class RizinTarget(base.MesonStaticTarget):
     def __init__(self):
         super().__init__('rizin')
 
