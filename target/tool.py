@@ -186,22 +186,22 @@ class Radare2Target(base.MesonStaticTarget):
 
     def prepare_source(self, state: BuildState):
         state.download_source(
-            'https://github.com/radareorg/radare2/releases/download/6.0.0/radare2-6.0.0.tar.xz',
-            '5aff30c3ee9578f40a5593d079a60897f90a05b98fca921a9e13202173afaaee')
+            'https://github.com/radareorg/radare2/releases/download/6.0.2/radare2-6.0.2.tar.xz',
+            'f80c3f5567ff8c52b39846b499e70b100d49bed156c4a996f592f9d0d90cd7bf')
 
     def detect(self, state: BuildState) -> bool:
         return state.has_source_file('man/radare2.1')
 
     def configure(self, state: BuildState):
-        state.set_build_datetime(2025, 7, 30, 2, 23, 6)
+        state.set_build_datetime(2025, 8, 12, 15, 52, 42)
 
         option = state.options
         option['blob'] = 'true'
         option['enable_tests'] = 'false'
         option['enable_r2r'] = 'false'
         option['local'] = 'true'
-        option['r2_gittip'] = 'a2bb4f058c410f9ef988f9ce13b37303b9d739e8'
-        option['r2_version_commit'] = '33870'  # git rev-list --all --count
+        option['r2_gittip'] = 'ffd5eed9874eef885a1d86390c0273a88a1ff1d1'
+        option['r2_version_commit'] = '33909'  # git rev-list --all --count
         option['static_runtime'] = 'true'
 
         super().configure(state)
