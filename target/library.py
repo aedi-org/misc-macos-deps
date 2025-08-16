@@ -245,20 +245,6 @@ class IntlTarget(GettextBaseTarget):
         self.install(state, state.options)
 
 
-class JpegTurboTarget(base.CMakeStaticDependencyTarget):
-    def __init__(self):
-        super().__init__('jpeg-turbo')
-
-    def prepare_source(self, state: BuildState):
-        state.download_source(
-            'https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.0/libjpeg-turbo-3.1.0.tar.gz',
-            '9564c72b1dfd1d6fe6274c5f95a8d989b59854575d4bbee44ade7bc17aa9bc93')
-
-    def configure(self, state: BuildState):
-        state.options['ENABLE_SHARED'] = 'NO'
-        super().configure(state)
-
-
 class OpusFileTarget(base.CMakeStaticDependencyTarget):
     def __init__(self):
         super().__init__('opusfile')
