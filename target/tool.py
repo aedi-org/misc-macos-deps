@@ -86,6 +86,7 @@ class FFmpegTarget(base.ConfigureMakeDependencyTarget):
     # TODO: fix absolute paths in bin/* and lib/*
     def __init__(self):
         super().__init__('ffmpeg')
+        self.prerequisites = 'nasm'
 
     def prepare_source(self, state: BuildState):
         state.download_source(
