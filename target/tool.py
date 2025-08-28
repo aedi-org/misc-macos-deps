@@ -83,7 +83,6 @@ class Bzip3Target(base.CMakeStaticDependencyTarget):
 
 
 class FFmpegTarget(base.ConfigureMakeDependencyTarget):
-    # TODO: fix absolute paths in bin/* and lib/*
     def __init__(self):
         super().__init__('ffmpeg')
         self.prerequisites = 'nasm'
@@ -105,6 +104,17 @@ class FFmpegTarget(base.ConfigureMakeDependencyTarget):
             opts['--enable-shared'] = None
 
         super().configure(state)
+
+    def post_build(self, state: BuildState):
+        super().post_build(state)
+
+        args = state.arguments
+
+        if args.static_ffmpeg and args.strip_ffmpeg:
+            print('Stripping ffmpeg libraries...')
+
+            for lib in state.install_path.glob('lib/*.a'):
+                subprocess.run(('/usr/bin/strip', '-S', lib), check=True, env=state.environment)
 
 
 class GraphvizTarget(base.CMakeStaticDependencyTarget):

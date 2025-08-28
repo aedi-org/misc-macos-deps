@@ -46,6 +46,7 @@ def _main():
 
     group = builder.argparser.add_argument_group('Target options')
     group.add_argument('--static-ffmpeg', action='store_true', help='build ffmpeg static libraries')
+    group.add_argument('--strip-ffmpeg', action='store_true', help='strip ffmpeg static libraries')
 
     builder.run(sys.argv[1:])
 
