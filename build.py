@@ -43,6 +43,10 @@ import target  # noqa: E402
 def _main():
     builder = aedi.Builder()
     builder.targets += target.targets()
+
+    group = builder.argparser.add_argument_group('Target options')
+    group.add_argument('--static-ffmpeg', action='store_true', help='build ffmpeg static libraries')
+
     builder.run(sys.argv[1:])
 
 

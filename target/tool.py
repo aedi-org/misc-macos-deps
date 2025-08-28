@@ -99,8 +99,10 @@ class FFmpegTarget(base.ConfigureMakeDependencyTarget):
     def configure(self, state: BuildState):
         opts = state.options
         opts['--arch'] = state.architecture()
-        opts['--disable-static'] = None
-        opts['--enable-shared'] = None
+
+        if not state.arguments.static_ffmpeg:
+            opts['--disable-static'] = None
+            opts['--enable-shared'] = None
 
         super().configure(state)
 
