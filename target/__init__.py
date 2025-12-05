@@ -42,6 +42,7 @@ def targets():
         BisonTarget(),
         Bzip3Target(),
         FFmpegTarget(),
+        GitTarget(),
         GraphvizTarget(),
         LuaTarget(),
         M4Target(),

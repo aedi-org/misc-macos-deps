@@ -21,6 +21,7 @@ import subprocess
 
 from aedi.state import BuildState
 from aedi.target import base
+from aedi.utility import hardcopy
 
 
 class AutoconfTarget(base.ConfigureMakeDependencyTarget):
@@ -115,6 +116,38 @@ class FFmpegTarget(base.ConfigureMakeDependencyTarget):
 
             for lib in state.install_path.glob('lib/*.a'):
                 subprocess.run(('/usr/bin/strip', '-S', lib), check=True, env=state.environment)
+
+
+class GitTarget(base.ConfigureMakeDependencyTarget):
+    # Content of deps/git should be copied to /usr/local
+    # Keychain credential helper can be enabled using the following command
+    # % git config --global credential.helper osxkeychain
+
+    def __init__(self):
+        super().__init__('git')
+
+    def prepare_source(self, state: BuildState):
+        state.download_source(
+            'https://www.kernel.org/pub/software/scm/git/git-2.52.0.tar.xz',
+            '3cd8fee86f69a949cb610fee8cd9264e6873d07fa58411f6060b3d62729ed7c5')
+
+    def detect(self, state: BuildState) -> bool:
+        return state.has_source_file('git.c')
+
+    def configure(self, state: BuildState):
+        state.environment['INSTALL_SYMLINKS'] = '1'
+        super().configure(state)
+
+    def post_build(self, state: BuildState):
+        super().post_build(state)
+
+        # Build and install keychain credential helper
+        helper_exe = 'git-credential-osxkeychain'
+        helper_dir = state.build_path / 'contrib/credential/osxkeychain'
+        args = ('make', helper_exe)
+        subprocess.run(args, check=True, cwd=helper_dir, env=state.environment)
+
+        hardcopy(helper_dir / helper_exe, state.install_path / 'libexec/git-core' / helper_exe)
 
 
 class GraphvizTarget(base.CMakeStaticDependencyTarget):
