@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "build.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/build.py",
+            "console": "internalConsole",
+            "args": [
+                "--target=build-prefix"
+            ]
+        },
+        {
+            "name": "core/build.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/core/build.py",
+            "console": "internalConsole",
+            "args": [
+                "--target=build-prefix"
+            ]
+        }
+    ]
+}
