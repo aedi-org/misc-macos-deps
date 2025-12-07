@@ -245,6 +245,21 @@ class IntlTarget(GettextBaseTarget):
         self.install(state, state.options)
 
 
+class Lz4Target(base.CMakeStaticDependencyTarget):
+    def __init__(self):
+        super().__init__('lz4')
+        self.src_root = 'build/cmake'
+
+    def prepare_source(self, state: BuildState):
+        state.download_source(
+            'https://github.com/lz4/lz4/releases/download/v1.10.0/lz4-1.10.0.tar.gz',
+            '537512904744b35e232912055ccf8ec66d768639ff3abe5788d90d792ec5f48b')
+
+    def configure(self, state: BuildState):
+        state.options['LZ4_BUILD_CLI'] = 'NO'
+        super().configure(state)
+
+
 class OpusFileTarget(base.CMakeStaticDependencyTarget):
     def __init__(self):
         super().__init__('opusfile')

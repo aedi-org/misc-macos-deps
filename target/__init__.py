@@ -32,6 +32,7 @@ def targets():
         HighwayTarget(),
         IconvTarget(),
         IntlTarget(),
+        Lz4Target(),
         OpusFileTarget(),
         TiffTarget(),
         WxWidgetsTarget(),
