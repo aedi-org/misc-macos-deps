@@ -33,6 +33,7 @@ def targets():
         IconvTarget(),
         IntlTarget(),
         Lz4Target(),
+        LzoTarget(),
         OpusFileTarget(),
         TiffTarget(),
         WxWidgetsTarget(),

@@ -260,6 +260,16 @@ class Lz4Target(base.CMakeStaticDependencyTarget):
         super().configure(state)
 
 
+class LzoTarget(base.CMakeDependencyTarget):
+    def __init__(self):
+        super().__init__('lzo')
+
+    def prepare_source(self, state: BuildState):
+        state.download_source(
+            'https://www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz',
+            'c0f892943208266f9b6543b3ae308fab6284c5c90e627931446fb49b4221a072')
+
+
 class OpusFileTarget(base.CMakeStaticDependencyTarget):
     def __init__(self):
         super().__init__('opusfile')
