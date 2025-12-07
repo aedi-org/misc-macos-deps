@@ -390,10 +390,6 @@ class XzTarget(base.CMakeStaticDependencyTarget):
             'https://github.com/tukaani-project/xz/releases/download/v5.8.1/xz-5.8.1.tar.gz',
             '507825b599356c10dca1cd720c9d0d0c9d5400b9de300af00e4d1ea150795543')
 
-    def configure(self, state: BuildState):
-        state.options['BUILD_TESTING'] = 'NO'
-        super().configure(state)
-
 
 class ZipTarget(base.SingleExeCTarget):
     def __init__(self):
