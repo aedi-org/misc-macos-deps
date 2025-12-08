@@ -399,3 +399,21 @@ class WxWidgetsTarget(base.CMakeStaticDependencyTarget):
 
         wx_config_path = state.install_path / 'bin/wx-config'
         self.update_text_file(wx_config_path, patch_wx_config)
+
+
+class ZstdTarget(base.CMakeDependencyTarget):
+    def __init__(self):
+        super().__init__('zstd')
+        self.src_root = 'build/cmake'
+
+    def prepare_source(self, state: BuildState):
+        state.download_source(
+            'https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-1.5.7.tar.gz',
+            'eb33e51f49a15e023950cd7825ca74a4a2b43db8354825ac24fc1b7ee09e6fa3')
+
+    def configure(self, state: BuildState):
+        opts = state.options
+        opts['ZSTD_BUILD_PROGRAMS'] = 'NO'
+        opts['ZSTD_BUILD_SHARED'] = 'NO'
+
+        super().configure(state)

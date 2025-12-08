@@ -37,6 +37,7 @@ def targets():
         OpusFileTarget(),
         TiffTarget(),
         WxWidgetsTarget(),
+        ZstdTarget(),
 
         # Tools
         AutoconfTarget(),
