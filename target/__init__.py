@@ -54,6 +54,7 @@ def targets():
         Radare2Target(),
         RizinTarget(),
         SevenZipTarget(),
+        SquashfsToolsTarget(),
         TimemoryTarget(),
         UnrarTarget(),
         XdeltaTarget(),

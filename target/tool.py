@@ -322,6 +322,26 @@ class SevenZipTarget(base.MakeTarget):
         return 'x64' if arch == 'x86_64' else arch
 
 
+class SquashfsToolsTarget(base.MakeTarget):
+    def __init__(self):
+        super().__init__('squashfs-tools')
+
+        self.prerequisites = ('lz4', 'lzo', 'xz', 'zstd')
+        self.src_root = 'squashfs-tools'
+
+    def prepare_source(self, state: BuildState):
+        state.download_source(
+            'https://github.com/plougher/squashfs-tools/releases/download/4.7.4/squashfs-tools-4.7.4.tar.gz',
+            '91c49f9a1ed972ad00688a38222119e2baf49ba74cf5fda05729a79d7d59d335')
+
+    def detect(self, state: BuildState) -> bool:
+        return state.has_source_file('squashfs-tools/unsquashfs.h')
+
+    def post_build(self, state: BuildState):
+        for name in ('mksquashfs', 'sqfscat', 'sqfstar', 'unsquashfs'):
+            self.copy_to_bin(state, f'{self.src_root}/{name}', name)
+
+
 class TimemoryTarget(base.CMakeStaticDependencyTarget):
     def __init__(self):
         super().__init__('timemory')
