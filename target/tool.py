@@ -407,8 +407,8 @@ class XzTarget(base.CMakeStaticDependencyTarget):
 
     def prepare_source(self, state: BuildState):
         state.download_source(
-            'https://github.com/tukaani-project/xz/releases/download/v5.8.1/xz-5.8.1.tar.gz',
-            '507825b599356c10dca1cd720c9d0d0c9d5400b9de300af00e4d1ea150795543')
+            'https://github.com/tukaani-project/xz/releases/download/v5.8.2/xz-5.8.2.tar.gz',
+            'ce09c50a5962786b83e5da389c90dd2c15ecd0980a258dd01f70f9e7ce58a8f1')
 
 
 class ZipTarget(base.SingleExeCTarget):
