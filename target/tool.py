@@ -219,6 +219,7 @@ class PbzxTarget(base.SingleExeCTarget):
     def __init__(self):
         super().__init__('pbzx')
         self.options = ('pbzx.c', '-lxar', '-llzma')
+        self.prerequisites = 'xz'
 
     def prepare_source(self, state: BuildState):
         state.download_source(
