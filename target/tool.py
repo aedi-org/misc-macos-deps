@@ -295,8 +295,8 @@ class SevenZipTarget(base.MakeTarget):
 
     def prepare_source(self, state: BuildState):
         state.download_source(
-            'https://7-zip.org/a/7z2600-src.tar.xz',
-            '3e596155744af055a77fc433c703d54e3ea9212246287b5b1436a6beac060f16')
+            'https://7-zip.org/a/7z2601-src.tar.xz',
+            'b2389e0e930b2f9a348cf0fe7d9870a46482a8ec044ee0bdf42e2136db31c3d6')
 
     def detect(self, state: BuildState) -> bool:
         return state.has_source_file('CPP/7zip/cmpl_mac_arm64.mak')
